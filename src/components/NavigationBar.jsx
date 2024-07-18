@@ -3,7 +3,7 @@ import { Navbar, Nav } from "react-bootstrap";
 
 function NavigationBar() {
     return (
-    <nav>
+    <nav >
         {/* <Link to="/add-customers">Add Customers</Link>
         <Link to="customers">Customers</Link> */}
       <Navbar  bg='success'  expand='lg'>
@@ -18,11 +18,17 @@ function NavigationBar() {
                     Add Customer
                 </Nav.Link><Nav.Link as={NavLink} to="/customers" activeclassname="active">
                     Customers
-                </Nav.Link><Nav.Link as={NavLink} to="/add-product" activeclassname="active">
+                </Nav.Link><Nav.Link as={NavLink} to="/add-products" activeclassname="active">
                     Add Product
                 </Nav.Link>
                 <Nav.Link as={NavLink} to="/products" activeclassname="active">
                     products
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/orders" activeclassname="active">
+                    orders
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/add-orders" activeclassname="active">
+                    Add Orders
                 </Nav.Link>
             </Nav>
         </Navbar.Collapse>

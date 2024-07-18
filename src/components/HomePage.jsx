@@ -9,8 +9,8 @@ function Homepage() {
     };
 
     return (
-        <div className="home-body bg-primary text-white">
-            <Container >
+        <div className="home-body bg-primary text-white jusitify-content-center ">
+            <Container fluid>
                 <Row>
                     <Col xs={6} md={4}>
                         <Image src={HomePagePhoto} fluid style={imgHeight} />

@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import CustomerForm from "./CustomerForm";
+import CustomerForm from './CustomerForm'
 
 function CustomerFormWrapper() {
     let params = useParams()
@@ -7,4 +7,5 @@ function CustomerFormWrapper() {
 
     return <CustomerForm params={params} navigate={navigate} />
 }
+
 export default CustomerFormWrapper

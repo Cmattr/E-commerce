@@ -1,66 +1,59 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { func } from 'prop-types'
-import {Form, Button, Alert, Container, Modal } from 'react-bootstrap'
+import axios from 'axios';
+import { Container, Row, Col, ListGroup, Button, } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-class CustomerList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            customers: [],
-            selectedCustomerId: null,
-            error: null,
+
+
+const CustomerList = ({ customerId }) => {
+    const [customers, setCustomers] = useState([]);
+
+
+    useEffect(() => {
+        const fetchCustomers = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:5000/customers`);
+                setCustomers(response.data);
+            } catch (error) {
+                console.error('Error fetching customers', error);
+            }
         };
-    }
 
-    componentDidMount() {
-        // Fetching data from an API call
-        axios.get('http://127.0.0.1:5000/customers')
-            .then(response => {
-                this.setState({ customers: response.data });
-            })
-            .catch(error => {
-                console.error('Error Fetching Data:', error);
-            });
-    }
+        fetchCustomers();
+    }, []);
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.selectedCustomerId !== this.state.selectedCustomerId) {
-            console.log(`New customer selected: ID ${this.state.selectedCustomerId}`);
+    const deleteCustomer = async (id) => {
+        try {
+            await axios.delete(`http://127.0.0.1:5000/customers/${id}`);
+            fetchCustomers(); 
+        } catch (error) {
+            console.error('Error deleting customer:', error);
         }
-    }
-
-    componentWillUnmount() {
-        console.log('CustomerList component is being unmounted');
-    }
-
-    selectCustomer = (id) => {
-        this.setState({ selectedCustomerId: id });
-        this.props.onCustomerSelect(id);
-    }
-
-    render() {
-        const { customers } = this.state;
-        return (
-            <div className="customer-list">
-                <h3>Customers</h3>
-                <ul>
-                    {customers.map(customer => (
-                        <li key={customer.id} >
-                            <Link to={`/edit-customer/${customer.id}`}>{customer.name}</Link>
-                           
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        );
-    }
-}
-
-CustomerList.propTypes = {
-    onCustomerSelect: PropTypes.func.isRequired,
+    };
+    
+    return (
+        <Container>
+            <Row>
+                <Col>
+                    <h3>Customers</h3>
+                    <ListGroup>
+                        {customers.map((customer) => (
+                            <ListGroup.Item key={customer.id} className="d-flex justify-content-between align-items-center shadow-sm p-3 mb-3 bg-white rounded">
+                                <div>
+                                    <Link to={`/edit-customer/${customer.id}`} className='text-primary'>{customer.name}</Link>
+                                    <Button variant="danger" onClick={() => deleteCustomer(customer.id)}>Delete</Button>
+                                </div>
+                                <div>
+                                    
+                                </div>
+                            </ListGroup.Item>
+                        ))}
+                    </ListGroup>
+                </Col>
+            </Row>
+        </Container>
+    );
 };
 
 export default CustomerList;
