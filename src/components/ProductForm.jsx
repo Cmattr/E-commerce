@@ -17,7 +17,7 @@ const ProductForm = ({ selectedProduct, onProductUpdated }) => {
         if (selectedProduct) {
             setProduct(selectedProduct);
         } else if (id) {
-            axios.get(`http://127.0.0.1:5000/Product/${id}`)
+            axios.get(`http://127.0.0.1:5000/product/${id}`)
                 .then(response => {
                     setProduct(response.data);
                 })
@@ -27,8 +27,8 @@ const ProductForm = ({ selectedProduct, onProductUpdated }) => {
 
     const validateForm = () => {
                 let errors = {};
-                if (!product.name) errors.name = 'Product name is required';
-                if (!product.price || product.price <= 0) errors.price = 'Price must be a positive number';
+                if (!Product.name) errors.name = 'Product name is required';
+                if (!Product.price || Product.price <= 0) errors.price = 'Price must be a positive number';
                 setErrors(errors);
                 return Object.keys(errors).length === 0;
             };
@@ -39,9 +39,9 @@ const ProductForm = ({ selectedProduct, onProductUpdated }) => {
         setSubmitting(true);
         try {
             if (id) {
-                await axios.put(`http://127.0.0.1:5000/Product/${id}`, Product);
+                await axios.put(`http://127.0.0.1:5000/products/${id}`, Product);
             } else {
-                await axios.post('http://127.0.0.1:5000/Products', Product);
+                await axios.post('http://127.0.0.1:5000/products', Product);
             }
             setShowSuccessModal(true);
             if (onProductUpdated) {
@@ -89,7 +89,7 @@ const ProductForm = ({ selectedProduct, onProductUpdated }) => {
                 </Form.Group>
 
                 <Form.Group controlId="ProductPhone">
-                    <Form.Label>Phone:</Form.Label>
+                    <Form.Label>Price</Form.Label>
                     <Form.Control
                         type='Number'
                         name='Price'
@@ -101,7 +101,7 @@ const ProductForm = ({ selectedProduct, onProductUpdated }) => {
                         {errors.phone}
                     </Form.Control.Feedback>
                 </Form.Group>
-
+                
                 <Button variant="primary" type="submit" disabled={isSubmitting}>
                     {isSubmitting ? <Spinner as='span' animation='border' size='sm' /> : 'Submit'}
                 </Button>

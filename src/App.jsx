@@ -11,7 +11,7 @@ import NavigationBar from './components/NavigationBar';
 import NotFound from './components/NotFound';
 import Homepage from './components/HomePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import OrderForm from './components/OrderForm';
+import OrderFormWrapper from './components/OrderFormWrapper';
 
 
 function App() {
@@ -24,9 +24,9 @@ function App() {
         <Route path='/edit-customer/:id' element={<CustomerFormWrapper />} />
         <Route path='/customers' element={<CustomerList />} />
         <Route path='/orders/' element={<OrderList />} />
-        <Route path='/add-orders/' element={<OrderForm />} />
+        <Route path='/add-orders/' element={<OrderFormWrapper />} />
         <Route path='/products' element={<ProductList />} />
-        <Route path='/product/:id' element={<ProductFormWrapper />} />
+        <Route path='/products/:id' element={<ProductFormWrapper />} />
         <Route path='/add-products' element={<ProductFormWrapper />} />
         <Route path='*' element={<NotFound/>}/>
       </Routes>

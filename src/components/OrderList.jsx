@@ -11,22 +11,22 @@ const OrderList = ({ orderId }) => {
 
 
     useEffect(() => {
-        const fetchorders = async () => {
+        const fetchOrders = async () => {
             try {
                 const response = await axios.get(`http://127.0.0.1:5000/orders`);
-                setorders(response.data);
+                setOrders(response.data);
             } catch (error) {
                 console.error('Error fetching orders', error);
             }
         };
 
-        fetchorders();
+        fetchOrders();
     }, []);
 
-    const deleteorder = async (id) => {
+    const deleteOrder = async (id) => {
         try {
             await axios.delete(`http://127.0.0.1:5000/orders/${id}`);
-            fetchorders(); 
+            fetchOrders(); 
         } catch (error) {
             console.error('Error deleting order:', error);
         }
@@ -41,8 +41,8 @@ const OrderList = ({ orderId }) => {
                         {orders.map((order) => (
                             <ListGroup.Item key={order.id} className="d-flex justify-content-between align-items-center shadow-sm p-3 mb-3 bg-white rounded">
                                 <div>
-                                    <p>{order.name}</p>
-                                    <Button variant="danger" onClick={() => deleteorder(order.id)}>Delete</Button>
+                                <p><Link to={`/edit-order/${order.id}`} className='text-primary'>{order.customer_id}</Link></p>dsfgsadf
+                                    <Button variant="danger" onClick={() => deleteOrder(order.id)}>Delete</Button>
                                 </div>
                                 <div>
                                     
